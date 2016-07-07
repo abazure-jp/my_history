@@ -15,31 +15,25 @@
 ## このhistoryはこう
 1. コマンドが実行される
 2. ヒストリーの・キャッシュの最下行に実行したコマンドが追加される
-A. ただし、実行時ミスしたコマンドは追加されない
-3. exitしたりhistory -aしたりするとキャッシュが.bash_historyにコピーされる
-B. その時、追加差分に対して重複確認を行い、古い方の履歴を消去する。
-
+3. *ただし、実行時ミスしたコマンドは追加されない*
+4. exitしたりhistory -aしたりするとキャッシュが.bash_historyにコピーされる
+5. *その時、追加差分に対して重複確認を行い、古い方の履歴を消去する。*
 
 ## 俺にはビルトインのhistoryに手を加える能力はないぞ
 ないぞい。
 
-## Aってどうやんの
-成功判定はコマンド末尾に;checkEndStatus.sh で行なう。
-こいつは終了時ステータス$?をモニタして成功時である1以外であればhistory -d $(($HISTCMD - 1))で直近の履歴を消してくれる。
+## 3.ってどうやんの
 
-
---> ワンライナーだと長いからcheckEndStatus.shにまとめたのに、
-たとえばcommand not foundとなる入力unpokoがあるとして、
-```
+```sh
 unpoko; my_history/checkEndStatus.sh
 ```
-を行なうと、必ずコマンド成功扱いになってしまう。
+my_history/checkEndStatus.shはこいつは終了時ステータス$?をモニタして成功時である1以外であればhistory -d $(($HISTCMD - 1))で直近の履歴を消してくれる。
 恐らく、$?は直前のコマンドの成否を保存しているわけだが、
 checkEndStatus.shが実行された時点で更新されてしまうのだ。
 なので、面倒だが、checkEndStatus.shの内容を都度全て入力する必要がある。
 
 つまり、
-```
+```sh
 unpoko ; if test $? -eq 0 ; then echo "(U^ω^)" ; else history -d $(( $HISTCMD - 1 )) ; echo "(´；ω；｀)" ; fi
 ```
 こういうの。
