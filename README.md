@@ -45,8 +45,9 @@ ailias check="if test $? -eq 0 ; then echo '(U^ω^)' ; else history -d $(( $HIST
 
 わからんｗ
 
-1. コマンドを全部配列の中にいれてしまう案（だめかな？)
-2.`$?`だけ`checkLastStatus.sh`の外側に置いて引数として渡す。つまり`[YOUR CMD] ; echo $? | checkLastStatus.sh`みたいな感じ。
+- コマンドを全部配列の中にいれてしまう案（だめかな？)
+- `$?`だけ`checkLastStatus.sh`の外側に置いて引数として渡す。
+  - つまり`[YOUR CMD] ; echo $? | checkLastStatus.sh`みたいな感じ。
 
 ## 5.ってどうやんの
 
