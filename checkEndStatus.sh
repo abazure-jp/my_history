@@ -6,6 +6,6 @@
 if test $? -eq 0 ; then
   echo "(U^ω^)"
 else
-  history -d $(( $HISTCMD - 1 )) 
+  history -d $(( $HISTCMD - 1 ))
   echo "(´；ω；｀)"
 fi
