@@ -1,7 +1,7 @@
 # my_history
 
 ## こういうの
-1. .bash_historyには（あるいはhistoryのキャッシュには)重複コマンドは保存しない
+1. `.bash_history`には（あるいはhistoryのキャッシュには)重複コマンドは保存しない
 2. 重複していた場合は古い方を消して最下行へ履歴を追加
 3. .bash_hisotryはコマンド実行される都度'history -a'される-> .bash_historyは常に最新
 4. .bash_historyは、使用されるスペースの数を区別しない( 例： 'ls ' と 'ls' は同一)
