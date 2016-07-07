@@ -16,7 +16,7 @@
 1. コマンドが実行される
 2. ヒストリーの・キャッシュの最下行に実行したコマンドが追加される
 3. *ただし、実行時ミスしたコマンドは追加されない*
-4. exitしたりhistory -aしたりするとキャッシュが.bash_historyにコピーされる
+4. `exit`したり`history -a`したりするとキャッシュが`.bash_history`にコピーされる
 5. *その時、追加差分に対して重複確認を行い、古い方の履歴を消去する。*
 
 ## 俺にはビルトインのhistoryに手を加える能力はないぞ
@@ -24,15 +24,16 @@
 
 ## 3.ってどうやんの
 ```sh
-unpoko ; if test $? -eq 0 ; then echo "(U^ω^)" ; else history -d $(( $HISTCMD - 1 )) ; echo "(´；ω；｀)" ; fi
+[YOUR CMD] ; if test $? -eq 0 ; then echo "(U^ω^)" ; else history -d $(( $HISTCMD - 1 )) ; echo "(´；ω；｀)" ; fi
 ```
 ### これじゃだめ？
 ```sh
-unpoko; my_history/checkEndStatus.sh
+[YOUR CMD]; my_history/checkEndStatus.sh
 ```
-だめ。
-`my_history/checkEndStatus.sh`はこいつは終了時ステータス`$?`をモニタして成功時である`0`以外であれば`history -d $(($HISTCMD - 1))`で直近の履歴を消してくれる。
-恐らく、$?は直前のコマンドの成否を保存しているわけだが、
-`checkEndStatus.sh`が実行された時点で更新されてしまうのだ。
-なので、面倒だが、`checkEndStatus.sh`の内容を都度全て入力する必要がある。
+**だめ。**
+
+直前のコマンドの終了ステータスを保持する変数`$?`は`checkEndStatus.sh`が実行された時点で更新されてしまうのだ。
+なので`$?`は定数`0`となってしまう。
+
+そういうわけで面倒だが、`checkEndStatus.sh`等によって入力を簡略化することはできなかった。
 
