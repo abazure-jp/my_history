@@ -24,7 +24,7 @@
 
 ## 3.ってどうやんの
 ```sh
-[YOUR CMD] ; if test $? -eq 0 ; then echo "(U^ω^)" ; else history -d $(( $HISTCMD - 1 )) ; echo "(´；ω；｀)" ; fi
+[YOUR CMD] ; if test $? -eq 0 ; then echo '(U^ω^)' ; else history -d $(( $HISTCMD - 1 )) ; echo '(´；ω；｀)' ; fi
 ```
 ### これじゃだめ？
 ```sh
@@ -34,6 +34,14 @@
 
 直前のコマンドの終了ステータスを保持する変数`$?`は`checkEndStatus.sh`が実行された時点で更新されてしまうのだ。
 なので`$?`は定数`0`となってしまう。
+
+### これも？
+
+```sh
+ailias=if test $? -eq 0 ; then echo '(U^ω^)' ; else history -d $(( $HISTCMD - 1 )) ; echo '(´；ω；｀)' ; fi
+```
+**だめ。(´；ω；｀)**
+
 
 そういうわけで面倒だが、`checkEndStatus.sh`等によって入力を簡略化することはできなかった。
 
