@@ -4,7 +4,8 @@
 # 1なら失敗
 # 127だとそんなコマンドねーよになる。
 if test $? -eq 0 ; then
-  echo "コマンド (U^ω^) アルトくぅ〜ん"
+  echo "(U^ω^)"
 else
-  echo "コマンド失敗ᕙ( ˘ω˘ )◜⁾⁽⁽◝( ˘ω˘ )ᕗ"
+  history -d $(( $HISTCMD - 1 )) 
+  echo "(´；ω；｀)"
 fi
