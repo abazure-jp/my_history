@@ -72,8 +72,36 @@ ailias check="if test $? -eq 0 ; then echo '(U^ω^)' ; else history -d $(( $HIST
 というのをやった結果から予想するに、historyのフラッシュは差分を突っ込んで空行を詰めるってのをやってるんだと思う
 
 つまり、重複コマンドに対して古いコマンドを消去するには
-1. `.bash_profile`から消す
-2. キャッシュから消す
-が必要。
+1. 　コマンドを受け取ったら
+2. `.bash_profile`から消す
+3. キャッシュから消す
+
+#### どうやって探す？
+
+ - .bash_profile
+ `!!`で直近コマンドを取得して.bash_profileでgrep,該当業をsedかなにかで消す
+ ->実行しちゃうやんけ。実行しなくてええんや。
+
+ ```bash
+ fc -ln $(( $HISTCMD ))
+ ```
+これで得られるっぽい。
+ `!!`で参照するのはhistoryのキャッシュ。HISTIGNOREに登録されたコマンドの後では参照しない
+ `HISTIGNORE`使わないほうがいいのかも…まあいいや
+
+> `awk '!a[$0]++' FILE`
+ソートしないで重複行を消す<http://qiita.com/arcizan/items/9cf19cd982fa65f87546>
+
+
+## うまくいかぬ
+
+```
+unpoko=`fc -ln 1 1` ; grep ${unpoko} .bash_history
+```
+これで試してるんだけどうまくいかない。
+
+
+
+
 
 
