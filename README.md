@@ -66,7 +66,17 @@
 #### どうやって探す？
 
  ```bash
-unpoko=`fc -ln $(( $HISTCMD )) | cut -c 4-` ; grep "${unpoko}" ~/.bash_history
+unpoko='echo いちばんめだよー' ; grep -n "${unpoko}" ~/.bash_history | cut -d ':' -f 1
 ```
+
+これで実行したコマンドにたいして`.bash_history`の中から重複したコマンドの行を見つけ出すことが出来る。
+
+TODO:この結果を配列に保存して `sed -e ${row}:${row}d .bash_history` みたいな感じに書けば
+超副業を削除できるのでは？
+
+
+
+
+
 
 
