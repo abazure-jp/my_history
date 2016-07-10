@@ -17,7 +17,8 @@
 2. ヒストリーの・キャッシュの最下行に実行したコマンドが追加される
 3. *ただし、実行時ミスしたコマンドは追加されない*
 4. `exit`したり`history -a`したりするとキャッシュが`.bash_history`にコピーされる
-5. *その時、追加差分に対して重複確認を行い、古い方の履歴を消去する。*
+5. *既存のコマンドは古い方をhistoryから消去する*
+6. `exit`したり`history -a`したりするとキャッシュが`.bash_history`にコピーされる
 
 ## 3.ってどうやんの
 
@@ -26,20 +27,6 @@
 ```sh
 [YOUR CMD] || history -d $(( $HISTCMD - 1 ))
 ```
-### これじゃだめ？
-```sh
-[YOUR CMD]; my_history/checkEndStatus.sh
-```
-**だめ。**
-
-直前のコマンドの終了ステータスを保持する変数`$?`は`checkEndStatus.sh`が実行された時点で更新されてしまうのだ。
-
-### これも？
-
-```sh
-ailias check="if test $? -eq 0 ; then echo '(U^ω^)' ; else history -d $(( $HISTCMD - 1 )) ; echo '(´；ω；｀)' ; fi"
-```
-**だめ。(´；ω；｀)**
 
 ### じゃあどうすんの
 
@@ -51,7 +38,7 @@ ailias check="if test $? -eq 0 ; then echo '(U^ω^)' ; else history -d $(( $HIST
 
 ## 5.ってどうやんの
 
-5. *その時、追加差分に対して重複確認を行い、古い方の履歴を消去する。*
+5. *既存のコマンドは古い方をhistoryから消去する*
 
 #### 疑問
 
@@ -78,30 +65,8 @@ ailias check="if test $? -eq 0 ; then echo '(U^ω^)' ; else history -d $(( $HIST
 
 #### どうやって探す？
 
- - .bash_profile
- `!!`で直近コマンドを取得して.bash_profileでgrep,該当業をsedかなにかで消す
- ->実行しちゃうやんけ。実行しなくてええんや。
-
  ```bash
- fc -ln $(( $HISTCMD ))
- ```
-これで得られるっぽい。
- `!!`で参照するのはhistoryのキャッシュ。HISTIGNOREに登録されたコマンドの後では参照しない
- `HISTIGNORE`使わないほうがいいのかも…まあいいや
-
-> `awk '!a[$0]++' FILE`
-ソートしないで重複行を消す<http://qiita.com/arcizan/items/9cf19cd982fa65f87546>
-
-
-## うまくいかぬ
-
+unpoko=`fc -ln $(( $HISTCMD )) | cut -c 4-` ; grep "${unpoko}" ~/.bash_history
 ```
-unpoko=`fc -ln 1 1` ; grep ${unpoko} .bash_history
-```
-これで試してるんだけどうまくいかない。
-
-
-
-
 
 
