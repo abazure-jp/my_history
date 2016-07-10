@@ -72,7 +72,7 @@ unpoko='echo いちばんめだよー' ; grep -n "${unpoko}" ~/.bash_history | c
 
 これで実行したコマンドにたいして`.bash_history`の中から重複したコマンドの行を見つけ出すことが出来る。
 
-TODO:この結果を配列に保存して `sed -e ${row}:${row}d .bash_history` みたいな感じに書けば
+TODO: この結果を配列に保存して `sed -e ${row}:${row}d .bash_history` みたいな感じに書けば
 超副業を削除できるのでは？
 
 
