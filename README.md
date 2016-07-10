@@ -4,7 +4,7 @@
 1. `.bash_history`には（あるいは`history`のキャッシュには)重複コマンドは保存しない
 2. 重複していた場合は古い方を消して最下行へ履歴を追加
 3. `.bash_hisotry`はコマンド実行される都度`history -a`される-> `.bash_history`は常に最新
-4. `.bash_history`は、使用されるスペースの数を区別しない( 例： `ls` と `ls　` は同一)
+e. `.bash_history`は、使用されるスペースの数を区別しない( 例： `ls` と `ls　` は同一)
 5. ミスコマンド(`$? != 0`)は保存しない
 
 ## 普通のhistoryはこう
@@ -44,8 +44,5 @@
 これはひとつ前のコマンドが`.bash_hsitory`にあれば消してくれるコマンド。
 
  ```bash
-unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -c 4- `; unpoko=`grep -n "${unpoko}" ~/.bash_history | cut -d ':' -f 1` ; sed -i -e ${unpoko},${unpoko}d ~/.bash_history
+unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -c 4- `; unpoko=`grep -wn "${unpoko}" ~/.bash_history | cut -d ':' -f 1` ; sed -i -e ${unpoko},${unpoko}d ~/.bash_history
 ```
-
-**TODO: これ部分一致もヒットしちまうやんけ!!!!どないすんじゃ！！！**
-
