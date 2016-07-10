@@ -15,10 +15,9 @@ e. `.bash_history`は、使用されるスペースの数を区別しない( 例
 ## my_historyはこう
 1. コマンドが実行される
 2. ヒストリーの・キャッシュの最下行に実行したコマンドが追加される
-3. *ただし、実行時ミスしたコマンドは追加されない*
-4. `exit`したり`history -a`したりするとキャッシュが`.bash_history`にコピーされる
-5. *既存のコマンドは古い方をhistoryから消去する*
-6. `exit`したり`history -a`したりするとキャッシュが`.bash_history`にコピーされる
+3. コマンド失敗時は*最下行のコマンドは追加されない*
+4. コマンド成功時は*既存コマンドならば古い方を~/.bash_historyから消去する*
+5. `exit`したり`history -a`したりするとキャッシュが`.bash_history`にコピーされる
 
 ## 3.ってどうやんの
 
@@ -44,5 +43,5 @@ e. `.bash_history`は、使用されるスペースの数を区別しない( 例
 これはひとつ前のコマンドが`.bash_hsitory`にあれば消してくれるコマンド。
 
  ```bash
-unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -c 4- `; unpoko=`grep -wn "${unpoko}" ~/.bash_history | cut -d ':' -f 1` ; sed -i -e ${unpoko},${unpoko}d ~/.bash_history
+unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -c 4- `; unpoko=`grep -wn "${unpoko}" ~/.bash_history | cut -d ':' -f 1` && sed -i -e ${unpoko},${unpoko}d ~/.bash_history
 ```
