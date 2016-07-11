@@ -53,7 +53,7 @@ fi
 
 TODO: `unpoko`よりも素敵な変数名をつける
 
-
+TODO: [YOUR CMD] ; `hogehoge.sh`で3.と5.が動作するようにする
 
 ソートしないで重複行を消す<http://qiita.com/arcizan/items/9cf19cd982fa65f87546>
 > `awk '!a[$0]++' FILE`
