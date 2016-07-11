@@ -46,10 +46,10 @@ e. `.bash_history`は、使用されるスペースの数を区別しない( 例
  ```bash
 unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -f 2 | cut -c 2- `;
 unpoko=`grep -wn "^${unpoko}\s*$" ~/.bash_history | cut -d ':' -f 1` ;
-sed -i -e ${unpoko},${unpoko}d ~/.bash_history
+if [ -n $unpoko ]; then
+  sed -i -e ${unpoko},${unpoko}d ~/.bash_history
+fi
 ```
-
-TODO: `grep`で反応無かったら`sed`しない
 
 TODO: `unpoko`よりも素敵な変数名をつける
 
