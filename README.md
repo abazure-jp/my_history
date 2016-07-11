@@ -44,11 +44,8 @@ e. `.bash_history`は、使用されるスペースの数を区別しない( 例
 これはひとつ前のコマンドが`.bash_hsitory`にあれば消してくれるコマンド。
 
  ```bash
-unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -c 4- `; unpoko=`grep -wn "^${unpoko}$" ~/.bash_history | cut -d ':' -f 1` && sed -i -e ${unpoko},${unpoko}d ~/.bash_history
+unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -f 2 | cut -c 2- `; unpoko=`grep -wn "^${unpoko}$" ~/.bash_history | cut -d ':' -f 1` && sed -i -e ${unpoko},${unpoko}d ~/.bash_history
 ```
-
-TODO: `cut -c 4-`のカット範囲を柔軟にしたい。4文字目からって根拠なんやねん。3文字じゃないと動かない時あったぞい。
-
 
 ソートしないで重複行を消す<http://qiita.com/arcizan/items/9cf19cd982fa65f87546>
 > `awk '!a[$0]++' FILE`
