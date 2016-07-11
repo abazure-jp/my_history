@@ -49,7 +49,11 @@ unpoko=`grep -wn "^${unpoko}\s*$" ~/.bash_history | cut -d ':' -f 1` ;
 sed -i -e ${unpoko},${unpoko}d ~/.bash_history
 ```
 
-TODO: grepで反応無かったらsedしない
+TODO: `grep`で反応無かったら`sed`しない
+
+TODO: `unpoko`よりも素敵な変数名をつける
+
+
 
 ソートしないで重複行を消す<http://qiita.com/arcizan/items/9cf19cd982fa65f87546>
 > `awk '!a[$0]++' FILE`
