@@ -44,7 +44,9 @@ e. `.bash_history`は、使用されるスペースの数を区別しない( 例
 これはひとつ前のコマンドが`.bash_hsitory`にあれば消してくれるコマンド。
 
  ```bash
-unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -f 2 | cut -c 2- `; unpoko=`grep -wn "^${unpoko}\s*$" ~/.bash_history | cut -d ':' -f 1` && sed -i -e ${unpoko},${unpoko}d ~/.bash_history
+unpoko=`fc -ln $(( $HISTCMD - 1 )) | cut -f 2 | cut -c 2- `;
+unpoko=`grep -wn "^${unpoko}\s*$" ~/.bash_history | cut -d ':' -f 1` ;
+sed -i -e ${unpoko},${unpoko}d ~/.bash_history
 ```
 
 TODO: grepで反応無かったらsedしない
